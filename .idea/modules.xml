@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ktor-webapi.iml" filepath="$PROJECT_DIR$/.idea/modules/ktor-webapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ktor-webapi_main.iml" filepath="$PROJECT_DIR$/.idea/modules/ktor-webapi_main.iml" group="ktor-webapi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ktor-webapi_test.iml" filepath="$PROJECT_DIR$/.idea/modules/ktor-webapi_test.iml" group="ktor-webapi" />
+    </modules>
+  </component>
+</project>
