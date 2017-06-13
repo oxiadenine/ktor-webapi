@@ -15,6 +15,7 @@ buildscript {
 apply plugin: 'kotlin'
 
 def ktorVersion = '0.3.2'
+def kodeinVersion = '4.0.0'
 
 repositories {
     mavenCentral()
@@ -32,8 +33,10 @@ dependencies {
 
     compile 'com.beust:klaxon:0.31'
 
+    compile "com.github.salomonbrys.kodein:kodein:$kodeinVersion"
+    compile "com.github.salomonbrys.kodein:kodein-conf:$kodeinVersion"
+
     compile 'org.postgresql:postgresql:42.1.1'
-    compile 'com.mchange:c3p0:0.9.5.2'
     compile 'org.jetbrains.exposed:exposed:0.8'
 }
 

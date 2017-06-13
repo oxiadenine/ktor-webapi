@@ -10,6 +10,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 class FruitDataSourceImpl(private val db: Database) : FruitDataSource {
     override fun initDatabase() {
         transaction {
+            logger.addLogger(StdOutSqlLogger)
             SchemaUtils.create(Fruits)
         }
     }
