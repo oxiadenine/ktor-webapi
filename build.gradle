@@ -32,6 +32,7 @@ dependencies {
     compile "org.jetbrains.ktor:ktor-netty:$ktorVersion"
 
     compile 'com.beust:klaxon:0.31'
+    compile 'com.github.kittinunf.result:result:1.1.0'
 
     compile "com.github.salomonbrys.kodein:kodein:$kodeinVersion"
     compile "com.github.salomonbrys.kodein:kodein-conf:$kodeinVersion"
@@ -43,5 +44,10 @@ dependencies {
 compileKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+}
+kotlin {
+    experimental {
+        coroutines "enable"
     }
 }

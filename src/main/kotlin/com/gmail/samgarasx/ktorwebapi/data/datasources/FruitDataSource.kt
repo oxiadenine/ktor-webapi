@@ -1,10 +1,12 @@
 package com.gmail.samgarasx.ktorwebapi.data.datasources
 
+import com.gmail.samgarasx.ktorwebapi.models.Fruit
+
 interface FruitDataSource {
     fun initDatabase()
-    fun getAll(): Collection<com.gmail.samgarasx.ktorwebapi.models.Fruit>
-    fun getById(id: Int): com.gmail.samgarasx.ktorwebapi.models.Fruit
-    fun add(fruit: com.gmail.samgarasx.ktorwebapi.models.Fruit): com.gmail.samgarasx.ktorwebapi.models.Fruit
-    fun update(id: Int, fruit: com.gmail.samgarasx.ktorwebapi.models.Fruit)
+    fun getAll(): Collection<Fruit>
+    fun getById(id: Int): Fruit
+    fun add(fruit: Fruit): Fruit
+    fun update(id: Int, fruit: Fruit)
     fun delete(id: Int)
 }
