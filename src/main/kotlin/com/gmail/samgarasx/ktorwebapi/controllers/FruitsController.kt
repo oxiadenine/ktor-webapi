@@ -46,14 +46,7 @@ class FruitsController(private val repository: FruitRepository) {
                                 )
                         )
                     }
-                }, { error ->
-                    return json {
-                        obj(
-                                "ok" to false,
-                                "msg" to error.message
-                        )
-                    }
-                })
+                }, { _ -> return json { obj() } })
     }
 
     fun add(fruit: Fruit): JsonObject {

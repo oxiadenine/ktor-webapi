@@ -44,4 +44,8 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-src/main/resources/
+# App settings
+src/main/resources/settings.json
+
+# Editor code style
+.idea/codeStyleSettings.xml

@@ -6,7 +6,9 @@ import com.gmail.samgarasx.ktorwebapi.controllers.FruitsController
 import com.gmail.samgarasx.ktorwebapi.models.Fruit
 import org.jetbrains.ktor.application.call
 import org.jetbrains.ktor.application.receive
+import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.http.HttpStatusCode
+import org.jetbrains.ktor.response.contentType
 import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.*
 
@@ -46,7 +48,7 @@ fun Route.createFruit(controller: FruitsController) {
             val json = Parser().parse(stringBuilder) as JsonObject
 
             val fruit = Fruit(
-                    json["id"] as Int,
+                    0,
                     json["no"] as String,
                     json["description"] as String)
 
@@ -90,8 +92,7 @@ fun Route.editFruit(controller: FruitsController) {
             if (jsonResponse.isEmpty()) {
                 call.response.status(HttpStatusCode.NoContent)
                 call.respondText("")
-            } else
-                call.respond(jsonResponse)
+            }
         }
     }
 }
