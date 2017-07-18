@@ -6,9 +6,7 @@ import com.gmail.samgarasx.ktorwebapi.controllers.FruitsController
 import com.gmail.samgarasx.ktorwebapi.models.Fruit
 import org.jetbrains.ktor.application.call
 import org.jetbrains.ktor.application.receive
-import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.http.HttpStatusCode
-import org.jetbrains.ktor.response.contentType
 import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.*
 

@@ -6,7 +6,6 @@ import com.github.kittinunf.result.Result
 import com.gmail.samgarasx.ktorwebapi.data.repositories.FruitRepository
 import com.gmail.samgarasx.ktorwebapi.models.Fruit
 
-
 class FruitsController(private val repository: FruitRepository) {
     fun getAll(): JsonObject {
         Result.of { this.repository.getAll() }

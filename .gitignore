@@ -7,6 +7,7 @@
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
+.idea/codeStyleSettings.xml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -44,8 +45,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-# App settings
-src/main/resources/settings.json
-
-# Editor code style
-.idea/codeStyleSettings.xml
+# Resources
+/src/main/resources/*

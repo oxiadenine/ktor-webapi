@@ -6,16 +6,19 @@ import com.gmail.samgarasx.ktorwebapi.data.datasources.FruitDataSource
 import com.gmail.samgarasx.ktorwebapi.data.datasources.FruitDataSourceImpl
 import com.gmail.samgarasx.ktorwebapi.data.repositories.FruitRepository
 import com.gmail.samgarasx.ktorwebapi.data.repositories.FruitRepositoryImpl
-import com.gmail.samgarasx.ktorwebapi.utils.Configuration
 import org.jetbrains.exposed.sql.Database
 
-val appModule = Kodein.Module {
-    val databaseSection = Configuration().getSection("database")
+import com.typesafe.config.ConfigFactory
 
-    val databaseUrl = databaseSection["url"] as String
-    val databaseDriver = databaseSection["driver"] as String
-    val databaseUser = databaseSection["user"] as String
-    val databasePassword = databaseSection["password"] as String
+val appModule = Kodein.Module {
+    val config = ConfigFactory.load()
+
+    val databaseConnection = config.getConfig("ktor.databaseConnection")
+
+    val databaseUrl = databaseConnection.getString("url")
+    val databaseDriver = databaseConnection.getString("driver")
+    val databaseUser = databaseConnection.getString("user")
+    val databasePassword = databaseConnection.getString("password")
 
     bind<Database>() with instance(Database.connect(databaseUrl, databaseDriver,
             databaseUser, databasePassword))

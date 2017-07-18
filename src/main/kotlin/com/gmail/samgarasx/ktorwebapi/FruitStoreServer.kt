@@ -4,11 +4,8 @@ import com.beust.klaxon.JsonObject
 import com.gmail.samgarasx.ktorwebapi.data.datasources.FruitDataSource
 import com.gmail.samgarasx.ktorwebapi.routing.*
 import org.jetbrains.ktor.application.install
-import org.jetbrains.ktor.features.Compression
 import org.jetbrains.ktor.features.DefaultHeaders
-import org.jetbrains.ktor.host.embeddedServer
 import org.jetbrains.ktor.logging.CallLogging
-import org.jetbrains.ktor.netty.Netty
 import org.jetbrains.ktor.routing.*
 import com.github.salomonbrys.kodein.conf.ConfigurableKodein
 import com.github.salomonbrys.kodein.instance
@@ -16,12 +13,11 @@ import com.gmail.samgarasx.ktorwebapi.di.appModule
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.ApplicationCallPipeline
 import org.jetbrains.ktor.content.TextContent
-import org.jetbrains.ktor.host.registerDefaultHandlers
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.request.acceptItems
 import org.jetbrains.ktor.transform.transform
 
-fun Application.module() {
+fun Application.main() {
     val kodein = ConfigurableKodein()
 
     kodein.addImport(appModule)
@@ -30,7 +26,6 @@ fun Application.module() {
 
     install(DefaultHeaders)
     install(CallLogging)
-
     install(Routing) {
         getFruits(kodein.instance())
         getFruit(kodein.instance())
@@ -47,10 +42,4 @@ fun Application.module() {
             }
         }
     }
-}
-
-fun main(args: Array<String>) {
-    embeddedServer(Netty, 8080,
-            reloadPackages = listOf("ktor-webapi"),
-            module = Application::module).start()
 }
