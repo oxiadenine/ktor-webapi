@@ -45,5 +45,8 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-# Resources
-/src/main/resources/*
+# Application configuration
+/src/main/resources/*.conf
+
+# Log configuration
+/src/main/resources/logback.xml
