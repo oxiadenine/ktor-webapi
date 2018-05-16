@@ -1,15 +1,15 @@
-package com.gmail.samgarasx.ktorwebapi
+package ktorwebapi
 
 import com.beust.klaxon.JsonObject
-import com.gmail.samgarasx.ktorwebapi.data.datasources.FruitDataSource
-import com.gmail.samgarasx.ktorwebapi.routing.*
+import ktorwebapi.data.datasources.FruitDataSource
 import org.jetbrains.ktor.application.install
 import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.logging.CallLogging
 import org.jetbrains.ktor.routing.*
 import com.github.salomonbrys.kodein.conf.ConfigurableKodein
 import com.github.salomonbrys.kodein.instance
-import com.gmail.samgarasx.ktorwebapi.di.appModule
+import ktorwebapi.di.appModule
+import ktorwebapi.routing.*
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.ApplicationCallPipeline
 import org.jetbrains.ktor.content.TextContent

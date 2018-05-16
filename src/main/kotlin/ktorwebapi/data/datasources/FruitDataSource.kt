@@ -1,6 +1,6 @@
-package com.gmail.samgarasx.ktorwebapi.data.datasources
+package ktorwebapi.data.datasources
 
-import com.gmail.samgarasx.ktorwebapi.models.Fruit
+import ktorwebapi.models.Fruit
 
 interface FruitDataSource {
     fun initDatabase()

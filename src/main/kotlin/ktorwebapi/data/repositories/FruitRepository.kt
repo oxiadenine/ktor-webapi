@@ -1,6 +1,6 @@
-package com.gmail.samgarasx.ktorwebapi.data.repositories
+package ktorwebapi.data.repositories
 
-import com.gmail.samgarasx.ktorwebapi.models.Fruit
+import ktorwebapi.models.Fruit
 
 interface FruitRepository {
     fun getAll(): Collection<Fruit>

@@ -1,9 +1,9 @@
-package com.gmail.samgarasx.ktorwebapi.routing
+package ktorwebapi.routing
 
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
-import com.gmail.samgarasx.ktorwebapi.controllers.FruitsController
-import com.gmail.samgarasx.ktorwebapi.models.Fruit
+import ktorwebapi.controllers.FruitsController
+import ktorwebapi.models.Fruit
 import org.jetbrains.ktor.application.call
 import org.jetbrains.ktor.application.receive
 import org.jetbrains.ktor.http.HttpStatusCode

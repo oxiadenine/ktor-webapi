@@ -1,4 +1,4 @@
-group 'com.gmail.samgarasx'
+group 'samgarasx'
 version '1.0-SNAPSHOT'
 
 buildscript {

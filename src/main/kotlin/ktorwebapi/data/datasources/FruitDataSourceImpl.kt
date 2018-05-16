@@ -1,7 +1,7 @@
-package com.gmail.samgarasx.ktorwebapi.data.datasources
+package ktorwebapi.data.datasources
 
-import com.gmail.samgarasx.ktorwebapi.data.Fruits
-import com.gmail.samgarasx.ktorwebapi.models.Fruit
+import ktorwebapi.data.Fruits
+import ktorwebapi.models.Fruit
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -17,7 +17,8 @@ class FruitDataSourceImpl(private val db: Database) : FruitDataSource {
     override fun getAll(): Collection<Fruit> {
         return transaction {
             return@transaction Fruits.selectAll().map {
-                Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description] ?: "")
+                Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description]
+                        ?: "")
             }
         }
     }
@@ -25,7 +26,8 @@ class FruitDataSourceImpl(private val db: Database) : FruitDataSource {
     override fun getById(id: Int): Fruit {
         return transaction {
             return@transaction Fruits.select(Fruits.id eq id).map {
-                Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description] ?: "")
+                Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description]
+                        ?: "")
             }.single()
         }
     }

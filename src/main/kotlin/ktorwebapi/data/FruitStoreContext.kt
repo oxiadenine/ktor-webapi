@@ -1,4 +1,4 @@
-package com.gmail.samgarasx.ktorwebapi.data
+package ktorwebapi.data
 
 import org.jetbrains.exposed.sql.Table
 

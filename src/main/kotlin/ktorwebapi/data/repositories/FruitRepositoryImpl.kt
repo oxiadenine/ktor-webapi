@@ -1,7 +1,7 @@
-package com.gmail.samgarasx.ktorwebapi.data.repositories
+package ktorwebapi.data.repositories
 
-import com.gmail.samgarasx.ktorwebapi.data.datasources.FruitDataSource
-import com.gmail.samgarasx.ktorwebapi.models.Fruit
+import ktorwebapi.data.datasources.FruitDataSource
+import ktorwebapi.models.Fruit
 
 class FruitRepositoryImpl(private val dataSource: FruitDataSource) : FruitRepository {
     override fun getAll(): Collection<Fruit> {
