@@ -1,45 +1,41 @@
 package ktorwebapi
 
-import com.beust.klaxon.JsonObject
+import io.ktor.application.Application
+import io.ktor.application.install
+import io.ktor.features.CallLogging
+import io.ktor.features.ContentNegotiation
+import io.ktor.features.DefaultHeaders
+import io.ktor.gson.gson
+import io.ktor.routing.Routing
+import ktorwebapi.controllers.FruitController
 import ktorwebapi.data.datasources.FruitDataSource
-import org.jetbrains.ktor.application.install
-import org.jetbrains.ktor.features.DefaultHeaders
-import org.jetbrains.ktor.logging.CallLogging
-import org.jetbrains.ktor.routing.*
-import com.github.salomonbrys.kodein.conf.ConfigurableKodein
-import com.github.salomonbrys.kodein.instance
 import ktorwebapi.di.appModule
 import ktorwebapi.routing.*
-import org.jetbrains.ktor.application.Application
-import org.jetbrains.ktor.application.ApplicationCallPipeline
-import org.jetbrains.ktor.content.TextContent
-import org.jetbrains.ktor.http.ContentType
-import org.jetbrains.ktor.request.acceptItems
-import org.jetbrains.ktor.transform.transform
+import org.kodein.di.Kodein
+import org.kodein.di.generic.instance
 
 fun Application.main() {
-    val kodein = ConfigurableKodein()
+    val kodein = Kodein {
+        import(appModule)
+    }
 
-    kodein.addImport(appModule)
+    val fruitDataSource: FruitDataSource by kodein.instance()
+    fruitDataSource.initDatabase()
 
-    kodein.instance<FruitDataSource>().initDatabase()
+    val fruitController: FruitController by kodein.instance()
 
     install(DefaultHeaders)
     install(CallLogging)
-    install(Routing) {
-        getFruits(kodein.instance())
-        getFruit(kodein.instance())
-        createFruit(kodein.instance())
-        editFruit(kodein.instance())
-        deleteFruit(kodein.instance())
-    }
-
-    intercept(ApplicationCallPipeline.Infrastructure) { call ->
-        val headers = call.request.acceptItems()
-        if (headers.any { it.value == ContentType.Application.Json.toString() }) {
-            call.transform.register<JsonObject> { value ->
-                TextContent(value.toJsonString(true), ContentType.Application.Json)
-            }
+    install(ContentNegotiation) {
+        gson {
+            setPrettyPrinting()
         }
+    }
+    install(Routing) {
+        getFruits(fruitController)
+        getFruit(fruitController)
+        createFruit(fruitController)
+        editFruit(fruitController)
+        deleteFruit(fruitController)
     }
 }

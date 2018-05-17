@@ -1,14 +1,16 @@
 package ktorwebapi.di
 
-import com.github.salomonbrys.kodein.*
-import org.jetbrains.ktor.config.HoconApplicationConfig
 import com.typesafe.config.ConfigFactory
-import ktorwebapi.controllers.FruitsController
+import io.ktor.config.HoconApplicationConfig
+import ktorwebapi.controllers.FruitController
 import ktorwebapi.data.datasources.FruitDataSource
-import ktorwebapi.data.datasources.FruitDataSourceImpl
 import ktorwebapi.data.repositories.FruitRepository
-import ktorwebapi.data.repositories.FruitRepositoryImpl
 import org.jetbrains.exposed.sql.Database
+import org.kodein.di.Kodein
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
+import org.kodein.di.generic.singleton
 
 val appModule = Kodein.Module {
     val config = HoconApplicationConfig(ConfigFactory.load())
@@ -22,7 +24,7 @@ val appModule = Kodein.Module {
 
     bind<Database>() with instance(Database.connect(databaseUrl, databaseDriver,
             databaseUser, databasePassword))
-    bind<FruitDataSource>() with singleton { FruitDataSourceImpl(instance()) }
-    bind<FruitRepository>() with singleton { FruitRepositoryImpl(instance()) }
-    bind() from provider { FruitsController(instance()) }
+    bind<FruitDataSource>() with singleton { FruitDataSource() }
+    bind<FruitRepository>() with singleton { FruitRepository(instance()) }
+    bind() from provider { FruitController(instance()) }
 }

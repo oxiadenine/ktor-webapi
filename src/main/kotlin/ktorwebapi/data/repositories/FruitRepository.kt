@@ -1,11 +1,26 @@
 package ktorwebapi.data.repositories
 
+import ktorwebapi.data.datasources.FruitDataSource
 import ktorwebapi.models.Fruit
 
-interface FruitRepository {
-    fun getAll(): Collection<Fruit>
-    fun getById(id: Int): Fruit
-    fun add(fruit: Fruit): Fruit
-    fun update(id: Int, fruit: Fruit)
-    fun delete(id: Int)
+class FruitRepository(private val dataSource: FruitDataSource) {
+    fun getAll(): Collection<Fruit> {
+        return this.dataSource.getAll()
+    }
+
+    fun getById(id: Int): Fruit {
+        return this.dataSource.getById(id)
+    }
+
+    fun add(fruit: Fruit): Fruit {
+        return this.dataSource.add(fruit)
+    }
+
+    fun update(id: Int, fruit: Fruit) {
+        this.dataSource.update(id, fruit)
+    }
+
+    fun delete(id: Int) {
+        this.dataSource.delete(id)
+    }
 }
