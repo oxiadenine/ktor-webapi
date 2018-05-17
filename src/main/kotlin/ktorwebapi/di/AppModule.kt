@@ -13,14 +13,18 @@ import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 
 val appModule = Kodein.Module {
-    val config = HoconApplicationConfig(ConfigFactory.load())
+    val environment = HoconApplicationConfig(ConfigFactory.load())
+            .property("ktor.deployment.environment").getString()
+    val configName = "application.$environment.conf"
 
-    val database = config.config("ktor.database")
+    val config = HoconApplicationConfig(ConfigFactory.load(configName))
 
-    val databaseUrl = database.property("url").getString()
-    val databaseDriver = database.property("driver").getString()
-    val databaseUser = database.property("user").getString()
-    val databasePassword = database.property("password").getString()
+    val databaseConfig = config.config("ktor.database")
+
+    val databaseUrl = databaseConfig.property("url").getString()
+    val databaseDriver = databaseConfig.property("driver").getString()
+    val databaseUser = databaseConfig.property("user").getString()
+    val databasePassword = databaseConfig.property("password").getString()
 
     bind<Database>() with instance(Database.connect(databaseUrl, databaseDriver,
             databaseUser, databasePassword))

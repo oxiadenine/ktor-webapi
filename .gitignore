@@ -28,3 +28,6 @@
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
+
+# Application configuration
+application.*.conf
