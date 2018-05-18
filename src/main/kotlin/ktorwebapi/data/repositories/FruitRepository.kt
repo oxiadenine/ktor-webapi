@@ -1,26 +1,53 @@
 package ktorwebapi.data.repositories
 
-import ktorwebapi.data.datasources.FruitDataSource
+import ktorwebapi.data.Fruits
 import ktorwebapi.models.Fruit
+import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.transactions.transaction
 
-class FruitRepository(private val dataSource: FruitDataSource) {
+class FruitRepository {
     fun getAll(): Collection<Fruit> {
-        return this.dataSource.getAll()
+        return transaction {
+            return@transaction ktorwebapi.data.Fruits.selectAll().map {
+                Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description]
+                        ?: "")
+            }
+        }
     }
 
     fun getById(id: Int): Fruit {
-        return this.dataSource.getById(id)
+        return transaction {
+            return@transaction Fruits.select(Fruits.id eq id).map {
+                Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description]
+                        ?: "")
+            }.single()
+        }
     }
 
     fun add(fruit: Fruit): Fruit {
-        return this.dataSource.add(fruit)
+        return transaction {
+            val id = Fruits.insert {
+                it[no] = fruit.no
+                it[description] = fruit.description
+            }.generatedKey!!.toInt()
+
+            return@transaction Fruit(id, fruit.no, fruit.description)
+        }
     }
 
     fun update(id: Int, fruit: Fruit) {
-        this.dataSource.update(id, fruit)
+        transaction {
+            Fruits.update({ Fruits.id eq id }) {
+                it[no] = fruit.no
+                it[description] = fruit.description
+            }
+        }
     }
 
     fun delete(id: Int) {
-        this.dataSource.delete(id)
+        transaction {
+            Fruits.deleteWhere { Fruits.id eq id }
+        }
     }
 }

@@ -9,17 +9,12 @@ import io.ktor.server.netty.Netty
 import org.slf4j.LoggerFactory
 
 fun main(args: Array<String>) {
-    val environment = HoconApplicationConfig(ConfigFactory.load())
-            .property("ktor.deployment.environment").getString()
+    val environment = System.getenv("KTOR_ENVIRONMENT") ?: "production"
     val configName = "application.$environment.conf"
 
     val appEngineEnv = applicationEngineEnvironment {
-        log = LoggerFactory.getLogger("ktor.application")
         config = HoconApplicationConfig(ConfigFactory.load(configName))
-
-        module {
-            main()
-        }
+        log = LoggerFactory.getLogger("ktor.application")
 
         connector {
             host = config.property("ktor.deployment.host").getString()

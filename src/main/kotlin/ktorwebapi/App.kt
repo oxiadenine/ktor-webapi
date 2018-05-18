@@ -8,19 +8,36 @@ import io.ktor.features.DefaultHeaders
 import io.ktor.gson.gson
 import io.ktor.routing.Routing
 import ktorwebapi.controllers.FruitController
-import ktorwebapi.data.datasources.FruitDataSource
-import ktorwebapi.di.appModule
+import ktorwebapi.data.Fruits
+import ktorwebapi.data.repositories.FruitRepository
 import ktorwebapi.routing.*
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.Kodein
+import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
+import org.kodein.di.generic.singleton
 
 fun Application.main() {
-    val kodein = Kodein {
-        import(appModule)
+    val appConfig = environment.config
+
+    val databaseUrl = appConfig.property("ktor.database.url").getString()
+    val databaseDriver = appConfig.property("ktor.database.driver").getString()
+    val databaseUser = appConfig.property("ktor.database.user").getString()
+    val databasePassword = appConfig.property("ktor.database.password").getString()
+
+    Database.connect(databaseUrl, databaseDriver, databaseUser, databasePassword)
+
+    transaction {
+        SchemaUtils.create(Fruits)
     }
 
-    val fruitDataSource: FruitDataSource by kodein.instance()
-    fruitDataSource.initDatabase()
+    val kodein = Kodein {
+        bind<FruitRepository>() with singleton { FruitRepository() }
+        bind() from provider { FruitController(instance()) }
+    }
 
     val fruitController: FruitController by kodein.instance()
 
