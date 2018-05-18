@@ -1,27 +1,41 @@
 package ktorwebapi.controllers
 
-import com.github.kittinunf.result.Result
 import ktorwebapi.data.repositories.FruitRepository
 import ktorwebapi.models.Fruit
 
 class FruitController(private val repository: FruitRepository) {
-    fun getAll(): Result<Collection<Fruit>, Exception> {
-        return Result.of { this.repository.getAll() }
+    fun getAll(): Collection<Fruit> {
+        return this.repository.findAll()
     }
 
-    fun getById(id: Int): Result<Fruit, Exception> {
-        return Result.of { this.repository.getById(id) }
+    fun getById(id: Int): Fruit? {
+        return this.repository.findById(id)
     }
 
-    fun add(fruit: Fruit): Result<Fruit, Exception> {
-        return Result.of { this.repository.add(fruit) }
+    fun add(fruit: Fruit): Fruit {
+        return this.repository.create(fruit)
     }
 
-    fun update(id: Int, fruit: Fruit): Result<Unit, Exception> {
-        return Result.of { this.repository.update(id, fruit) }
+    fun update(id: Int, fruit: Fruit): Fruit? {
+        val oldFruit = this.repository.findById(id)
+
+        oldFruit?.apply {
+            oldFruit.no = fruit.no
+            oldFruit.description = fruit.description
+
+            this@FruitController.repository.update(oldFruit)
+        }
+
+        return oldFruit
     }
 
-    fun delete(id: Int): Result<Unit, Exception> {
-        return Result.of { this.repository.delete(id) }
+    fun delete(id: Int): Fruit? {
+        val oldFruit = this.repository.findById(id)
+
+        oldFruit?.apply {
+            this@FruitController.repository.delete(id)
+        }
+
+        return oldFruit
     }
 }

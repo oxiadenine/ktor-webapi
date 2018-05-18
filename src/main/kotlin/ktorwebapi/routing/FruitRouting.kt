@@ -1,94 +1,73 @@
 package ktorwebapi.routing
 
 import io.ktor.application.call
-import io.ktor.http.HttpStatusCode
 import io.ktor.request.receive
 import io.ktor.response.respond
-import io.ktor.response.respondText
 import io.ktor.routing.*
 import ktorwebapi.controllers.FruitController
+import ktorwebapi.helpers.JsonResponse
 import ktorwebapi.models.Fruit
 
-private const val BASE_ROUTE: String = "api/fruits"
+private const val API_URL: String = "api/fruits"
 
-fun Route.getFruits(controller: FruitController) {
-    get(BASE_ROUTE) {
-        controller.getAll()
-                .fold({
-                    call.respond(it)
-                }, { error ->
-                    call.respondText(error.message!!)
-                })
-    }
-}
+fun Route.fruits(controller: FruitController) {
+    route(API_URL) {
+        get {
+            val fruits = controller.getAll()
 
-fun Route.getFruit(controller: FruitController) {
-    get("$BASE_ROUTE/{id}") {
-        val id = call.parameters["id"] ?: let {
-            call.response.status(HttpStatusCode.BadRequest)
-            call.respondText("")
+            call.respond(JsonResponse.success(fruits))
         }
 
-        controller.getById((id as String).toInt())
-                .fold({
-                    call.respond(it)
-                }, { error ->
-                    call.respond(error.message!!)
-                })
-    }
-}
+        get("{id}") {
+            val id = call.parameters["id"]!!.toInt()
 
-fun Route.createFruit(controller: FruitController) {
-    post(BASE_ROUTE) {
-        val fruit = call.receive<Fruit>()
+            val fruit = controller.getById(id)
 
-        controller.add(fruit)
-                .fold({
-                    call.respond(it)
-                }, { error ->
-                    call.respondText(error.message!!)
-                })
-    }
-}
+            fruit ?: let {
+                call.respond(JsonResponse.failure<String>("Fruit does not exists"))
+            }
 
-fun Route.editFruit(controller: FruitController) {
-    put("$BASE_ROUTE/{id}") {
-        val id = call.parameters["id"] ?: let {
-            call.response.status(HttpStatusCode.BadRequest)
-            call.respondText("")
+            fruit?.apply {
+                call.respond(JsonResponse.success(fruit))
+            }
         }
 
-        val fruit = call.receive<Fruit>()
+        post {
+            val fruit = call.receive<Fruit>()
 
-        if ((id as String).toInt() != fruit.id) {
-            call.response.status(HttpStatusCode.BadRequest)
-            call.respondText("")
+            val addedFruit = controller.add(fruit)
+
+            call.respond(JsonResponse.success(addedFruit))
         }
 
-        controller.update(id.toInt(), fruit)
-                .fold({
-                    call.response.status(HttpStatusCode.NoContent)
-                    call.respondText("")
-                }, { error ->
-                    call.respondText(error.message!!)
-                })
-    }
-}
+        put("{id}") {
+            val id = call.parameters["id"]!!.toInt()
 
-fun Route.deleteFruit(controller: FruitController) {
-    delete("$BASE_ROUTE/{id}") {
-        val id = call.parameters["id"] ?: let {
-            call.response.status(HttpStatusCode.BadRequest)
-            call.respondText("")
+            val fruit = call.receive<Fruit>()
+
+            val updatedFruit = controller.update(id, fruit)
+
+            updatedFruit ?: let {
+                call.respond(JsonResponse.failure<String>("Fruit does not exists"))
+            }
+
+            updatedFruit?.apply {
+                call.respond(JsonResponse.success(updatedFruit))
+            }
         }
 
-        controller.delete((id as String).toInt())
-                .fold({
-                    call.response.status(HttpStatusCode.NoContent)
-                    call.respondText("")
-                }, { error ->
-                    call.respondText(error.message!!)
-                })
+        delete("{id}") {
+            val id = call.parameters["id"]!!.toInt()
+
+            val deletedFruit = controller.delete(id)
+
+            deletedFruit ?: let {
+                call.respond(JsonResponse.failure<String>("Fruit does not exists"))
+            }
+
+            deletedFruit?.apply {
+                call.respond(JsonResponse.success(deletedFruit))
+            }
+        }
     }
 }
-

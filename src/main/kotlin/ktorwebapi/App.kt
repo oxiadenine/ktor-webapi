@@ -49,10 +49,6 @@ fun Application.main() {
         }
     }
     install(Routing) {
-        getFruits(fruitController)
-        getFruit(fruitController)
-        createFruit(fruitController)
-        editFruit(fruitController)
-        deleteFruit(fruitController)
+        fruits(fruitController)
     }
 }

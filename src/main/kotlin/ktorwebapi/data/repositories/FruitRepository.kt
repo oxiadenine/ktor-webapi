@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class FruitRepository {
-    fun getAll(): Collection<Fruit> {
+    fun findAll(): Collection<Fruit> {
         return transaction {
             return@transaction ktorwebapi.data.Fruits.selectAll().map {
                 Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description]
@@ -16,16 +16,16 @@ class FruitRepository {
         }
     }
 
-    fun getById(id: Int): Fruit {
+    fun findById(id: Int): Fruit? {
         return transaction {
             return@transaction Fruits.select(Fruits.id eq id).map {
                 Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description]
                         ?: "")
-            }.single()
+            }.singleOrNull()
         }
     }
 
-    fun add(fruit: Fruit): Fruit {
+    fun create(fruit: Fruit): Fruit {
         return transaction {
             val id = Fruits.insert {
                 it[no] = fruit.no
@@ -36,9 +36,9 @@ class FruitRepository {
         }
     }
 
-    fun update(id: Int, fruit: Fruit) {
+    fun update(fruit: Fruit) {
         transaction {
-            Fruits.update({ Fruits.id eq id }) {
+            Fruits.update({ Fruits.id eq fruit.id }) {
                 it[no] = fruit.no
                 it[description] = fruit.description
             }
