@@ -1,80 +1,56 @@
 package ktorwebapi.controllers
 
-import ktorwebapi.data.Fruits
+import ktorwebapi.entities.FruitEntity
+import ktorwebapi.entities.Fruits
 import ktorwebapi.models.Fruit
-import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class FruitController {
-    fun all(): Collection<Fruit> {
-        return transaction {
-            return@transaction Fruits.selectAll().map {
-                Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description])
-            }
-        }
+    fun all() = transaction {
+        return@transaction FruitEntity.all().map {
+            Fruit(it.id.value, it.no, it.description)
+        }.toList()
     }
 
-    fun one(id: Long): Fruit? {
-        return transaction {
-            return@transaction Fruits.select { Fruits.id eq id }.map {
-                Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description])
-            }.singleOrNull()
-        }
+    fun one(id: Long) = transaction {
+        val fruitEntity = FruitEntity.findById(id)
+
+        return@transaction if (fruitEntity != null) {
+            Fruit(fruitEntity.id.value, fruitEntity.no, fruitEntity.description)
+        } else null
     }
 
-    fun new(fruit: Fruit): Fruit? {
-        return transaction {
-            val oldFruit = Fruits.select { Fruits.no eq fruit.no }.map {
-                Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description])
-            }.singleOrNull()
+    fun new(fruit: Fruit) = transaction {
+        var fruitEntity = FruitEntity.find { Fruits.no eq fruit.no }.toList().singleOrNull()
 
-            println(oldFruit)
-
-            if (oldFruit != null) {
-                return@transaction null
+        return@transaction if (fruitEntity == null) {
+            fruitEntity = FruitEntity.new {
+                no = fruit.no
+                description = fruit.description
             }
 
-            fruit.id = Fruits.insert {
-                it[no] = fruit.no
-                it[description] = fruit.description
-            }.generatedKey!!.toLong()
-
-            return@transaction fruit
-        }
+            Fruit(fruitEntity.id.value, fruitEntity.no, fruitEntity.description)
+        } else null
     }
 
-    fun edit(id: Long, fruit: Fruit): Fruit? {
-        return transaction {
-            val oldFruit = Fruits.select { Fruits.id eq id }.map {
-                Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description])
-            }.singleOrNull()
+    fun edit(id: Long, fruit: Fruit) = transaction {
+        val fruitEntity = FruitEntity.findById(id)
 
-            if (oldFruit != null) {
-                Fruits.update({ Fruits.id eq id }) {
-                    it[no] = fruit.no
-                    it[description] = fruit.description
-                }
+        return@transaction if (fruitEntity != null) {
+            fruitEntity.no = fruit.no
+            fruitEntity.description = fruit.description
 
-                fruit.id = id
-
-                return@transaction fruit
-            }
-
-            return@transaction oldFruit
-        }
+            Fruit(fruitEntity.id.value, fruitEntity.no, fruitEntity.description)
+        } else null
     }
 
-    fun delete(id: Long): Fruit? {
-        return transaction {
-            val oldFruit = Fruits.select { Fruits.id eq id }.map {
-                Fruit(it[Fruits.id], it[Fruits.no], it[Fruits.description])
-            }.singleOrNull()
+    fun delete(id: Long) = transaction {
+        val fruitEntity = FruitEntity.findById(id)
 
-            if (oldFruit != null) {
-                Fruits.deleteWhere { Fruits.id eq id }
-            }
+        return@transaction if (fruitEntity != null) {
+            fruitEntity.delete()
 
-            return@transaction oldFruit
-        }
+            Fruit(fruitEntity.id.value, fruitEntity.no, fruitEntity.description)
+        } else null
     }
 }

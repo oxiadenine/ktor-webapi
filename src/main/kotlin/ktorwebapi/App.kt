@@ -8,15 +8,11 @@ import io.ktor.features.DefaultHeaders
 import io.ktor.gson.gson
 import io.ktor.routing.Routing
 import ktorwebapi.controllers.FruitController
-import ktorwebapi.data.Fruits
+import ktorwebapi.entities.Fruits
 import ktorwebapi.routing.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
 
 fun Application.main() {
     val appConfig = environment.config
@@ -32,12 +28,6 @@ fun Application.main() {
         SchemaUtils.create(Fruits)
     }
 
-    val kodein = Kodein {
-        bind() from provider { FruitController() }
-    }
-
-    val fruitController: FruitController by kodein.instance()
-
     install(DefaultHeaders)
     install(CallLogging)
     install(ContentNegotiation) {
@@ -46,6 +36,6 @@ fun Application.main() {
         }
     }
     install(Routing) {
-        fruits(fruitController)
+        fruits(FruitController())
     }
 }

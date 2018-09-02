@@ -43,11 +43,9 @@
     <orderEntry type="library" name="Gradle: io.ktor:ktor-network:0.9.4" level="project" />
     <orderEntry type="library" name="Gradle: io.ktor:ktor-utils-jvm:0.9.4" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.61" level="project" />
-    <orderEntry type="library" name="Gradle: org.kodein.di:kodein-di-generic-jvm:5.2.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.postgresql:postgresql:42.2.4" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.exposed:exposed:0.10.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.postgresql:postgresql:42.2.4" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
-    <orderEntry type="library" name="Gradle: org.kodein.di:kodein-di-core-jvm:5.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.61" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.2.61" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:0.25.0" level="project" />
@@ -66,7 +64,6 @@
     <orderEntry type="library" name="Gradle: io.ktor:ktor-utils:0.9.4" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-io:0.1.0-alpha-4" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-common:0.25.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.kodein.di:kodein-di-core-common:5.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-io:0.1.0-alpha-4" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:atomicfu-common:0.11.3" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.61" level="project" />

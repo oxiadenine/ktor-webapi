@@ -39,8 +39,6 @@ fun Route.fruits(controller: FruitController) {
 
             val fruit = controller.new(newFruit)
 
-            println(fruit)
-
             val response = if (fruit == null) {
                 JsonResponse.failure("Fruit already exists")
             } else {

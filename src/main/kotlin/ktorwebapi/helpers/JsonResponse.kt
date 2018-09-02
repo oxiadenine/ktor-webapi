@@ -1,16 +1,8 @@
 package ktorwebapi.helpers
 
-class JsonResponse<T>(val ok: Boolean, val data: T?, val error: Any?)
-{
-    companion object {
-        fun<T> success(data: T): JsonResponse<T>
-        {
-            return JsonResponse(true, data, null)
-        }
+data class Response(val ok: Boolean, val data: Any? = null, val error: Any? = null)
 
-        fun<T> failure(error: Any): JsonResponse<T>
-        {
-            return JsonResponse(false, null, error)
-        }
-    }
+object JsonResponse {
+    fun <T> success(data: T) = Response(true, data = data)
+    fun <T> failure(error: T) = Response(false, error = error)
 }
