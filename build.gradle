@@ -24,32 +24,30 @@ apply plugin: 'application'
 
 mainClassName = 'org.jetbrains.ktor.netty.DevelopmentHost'
 
-sourceCompatibility = 1.8
-
 compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = '1.8'
 }
 
 kotlin {
     experimental {
-        coroutines "enable"
+        coroutines 'enable'
     }
 }
 
 repositories {
     mavenCentral()
     jcenter()
-    maven { url "https://dl.bintray.com/kotlin/kotlinx" }
-    maven { url "https://dl.bintray.com/kotlin/ktor" }
-    maven { url "https://dl.bintray.com/kotlin/exposed" }
+    maven { url 'https://dl.bintray.com/kotlin/kotlinx' }
+    maven { url 'https://dl.bintray.com/kotlin/ktor' }
+    maven { url 'https://dl.bintray.com/kotlin/exposed' }
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile "io.ktor:ktor-server-netty:$ktor_version"
-    compile "io.ktor:ktor-gson:$ktor_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "io.ktor:ktor-server-netty:$ktor_version"
+    implementation "io.ktor:ktor-gson:$ktor_version"
     implementation "org.kodein.di:kodein-di-generic-jvm:$kodein_version"
-    compile "org.postgresql:postgresql:$postgresql_version"
-    compile "org.jetbrains.exposed:exposed:$exposed_version"
-    compile "ch.qos.logback:logback-classic:$logback_version"
+    implementation "org.postgresql:postgresql:$postgresql_version"
+    implementation "org.jetbrains.exposed:exposed:$exposed_version"
+    implementation "ch.qos.logback:logback-classic:$logback_version"
 }

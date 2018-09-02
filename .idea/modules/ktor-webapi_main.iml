@@ -43,10 +43,10 @@
     <orderEntry type="library" name="Gradle: io.ktor:ktor-network:0.9.4" level="project" />
     <orderEntry type="library" name="Gradle: io.ktor:ktor-utils-jvm:0.9.4" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.kodein.di:kodein-di-generic-jvm:5.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.postgresql:postgresql:42.2.4" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.exposed:exposed:0.10.4" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
-    <orderEntry type="library" name="Gradle: org.kodein.di:kodein-di-generic-jvm:5.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.kodein.di:kodein-di-core-jvm:5.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.61" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.2.61" level="project" />
