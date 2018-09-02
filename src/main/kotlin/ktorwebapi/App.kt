@@ -36,6 +36,7 @@ fun Application.main() {
         }
     }
     install(Routing) {
+        api()
         fruits(FruitController())
     }
 }
