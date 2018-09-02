@@ -1,3 +1,3 @@
 package ktorwebapi.models
 
-data class Fruit(var id: Int, var no: String, var description: String)
+data class Fruit(var id: Long, var no: String, var description: String)

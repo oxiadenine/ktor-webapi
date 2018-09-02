@@ -13,61 +13,71 @@ private const val API_URL: String = "api/fruits"
 fun Route.fruits(controller: FruitController) {
     route(API_URL) {
         get {
-            val fruits = controller.getAll()
+            val fruits = controller.all()
 
-            call.respond(JsonResponse.success(fruits))
+            val response = JsonResponse.success(fruits)
+
+            call.respond(response)
         }
 
         get("{id}") {
-            val id = call.parameters["id"]!!.toInt()
+            val id = call.parameters["id"]!!.toLong()
 
-            val fruit = controller.getById(id)
+            val fruit = controller.one(id)
 
-            fruit ?: let {
-                call.respond(JsonResponse.failure<String>("Fruit does not exists"))
+            val response = if (fruit == null) {
+                JsonResponse.failure<String>("Fruit does not exists")
+            } else {
+                JsonResponse.success(fruit)
             }
 
-            fruit?.apply {
-                call.respond(JsonResponse.success(fruit))
-            }
+            call.respond(response)
         }
 
         post {
-            val fruit = call.receive<Fruit>()
+            val newFruit = call.receive<Fruit>()
 
-            val addedFruit = controller.add(fruit)
+            val fruit = controller.new(newFruit)
 
-            call.respond(JsonResponse.success(addedFruit))
+            println(fruit)
+
+            val response = if (fruit == null) {
+                JsonResponse.failure("Fruit already exists")
+            } else {
+                JsonResponse.success(fruit)
+            }
+
+            call.respond(response)
         }
 
         put("{id}") {
-            val id = call.parameters["id"]!!.toInt()
+            val id = call.parameters["id"]!!.toLong()
 
-            val fruit = call.receive<Fruit>()
+            val editFruit = call.receive<Fruit>()
 
-            val updatedFruit = controller.update(id, fruit)
+            val fruit = controller.edit(id, editFruit)
 
-            updatedFruit ?: let {
-                call.respond(JsonResponse.failure<String>("Fruit does not exists"))
+            val response = if (fruit == null) {
+                JsonResponse.failure<String>("Fruit does not exists")
+            } else {
+                JsonResponse.success(fruit)
             }
 
-            updatedFruit?.apply {
-                call.respond(JsonResponse.success(updatedFruit))
-            }
+            call.respond(response)
         }
 
         delete("{id}") {
-            val id = call.parameters["id"]!!.toInt()
+            val id = call.parameters["id"]!!.toLong()
 
-            val deletedFruit = controller.delete(id)
+            val fruit = controller.delete(id)
 
-            deletedFruit ?: let {
-                call.respond(JsonResponse.failure<String>("Fruit does not exists"))
+            val response = if (fruit == null) {
+                JsonResponse.failure<String>("Fruit does not exists")
+            } else {
+                JsonResponse.success(fruit)
             }
 
-            deletedFruit?.apply {
-                call.respond(JsonResponse.success(deletedFruit))
-            }
+            call.respond(response)
         }
     }
 }

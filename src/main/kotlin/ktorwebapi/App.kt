@@ -9,7 +9,6 @@ import io.ktor.gson.gson
 import io.ktor.routing.Routing
 import ktorwebapi.controllers.FruitController
 import ktorwebapi.data.Fruits
-import ktorwebapi.data.repositories.FruitRepository
 import ktorwebapi.routing.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -18,7 +17,6 @@ import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
 
 fun Application.main() {
     val appConfig = environment.config
@@ -35,8 +33,7 @@ fun Application.main() {
     }
 
     val kodein = Kodein {
-        bind<FruitRepository>() with singleton { FruitRepository() }
-        bind() from provider { FruitController(instance()) }
+        bind() from provider { FruitController() }
     }
 
     val fruitController: FruitController by kodein.instance()
