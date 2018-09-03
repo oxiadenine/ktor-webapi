@@ -2,11 +2,7 @@ group 'samgarasx'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.2.61'
-    ext.ktor_version = '0.9.4'
-    ext.exposed_version = '0.10.4'
-    ext.postgresql_version = '42.2.4'
-    ext.logback_version = '1.2.3'
+    apply from: 'versions.gradle'
 
     repositories {
         mavenCentral()

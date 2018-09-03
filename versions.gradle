@@ -1,0 +1,7 @@
+ext {
+    kotlin_version = '1.2.61'
+    ktor_version = '0.9.4'
+    exposed_version = '0.10.4'
+    postgresql_version = '42.2.4'
+    logback_version = '1.2.3'
+}
