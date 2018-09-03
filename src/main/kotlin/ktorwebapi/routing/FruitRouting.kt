@@ -26,7 +26,7 @@ fun Route.fruits(controller: FruitController) {
             val fruit = controller.one(id)
 
             val response = if (fruit == null) {
-                JsonResponse.failure<String>("Fruit does not exists")
+                JsonResponse.failure("Fruit does not exists")
             } else {
                 JsonResponse.success(fruit)
             }
@@ -56,7 +56,7 @@ fun Route.fruits(controller: FruitController) {
             val fruit = controller.edit(id, editFruit)
 
             val response = if (fruit == null) {
-                JsonResponse.failure<String>("Fruit does not exists")
+                JsonResponse.failure("Fruit does not exists")
             } else {
                 JsonResponse.success(fruit)
             }
@@ -70,7 +70,7 @@ fun Route.fruits(controller: FruitController) {
             val fruit = controller.delete(id)
 
             val response = if (fruit == null) {
-                JsonResponse.failure<String>("Fruit does not exists")
+                JsonResponse.failure("Fruit does not exists")
             } else {
                 JsonResponse.success(fruit)
             }
