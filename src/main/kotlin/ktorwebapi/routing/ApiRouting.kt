@@ -5,10 +5,10 @@ import io.ktor.response.respond
 import io.ktor.routing.Route
 import io.ktor.routing.get
 
-private const val API_URL: String = "api"
+private const val API_URL = "api"
 
 fun Route.api() {
     get(API_URL) {
-        call.respond("Welcome to Ktor Web API!")
+        call.respond("Welcome to Ktor Web API")
     }
 }

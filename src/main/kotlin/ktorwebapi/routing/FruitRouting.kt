@@ -8,7 +8,7 @@ import ktorwebapi.controllers.FruitController
 import ktorwebapi.helpers.JsonResponse
 import ktorwebapi.models.Fruit
 
-private const val API_URL: String = "api/fruits"
+private const val API_URL = "api/fruits"
 
 fun Route.fruits(controller: FruitController) {
     route(API_URL) {
