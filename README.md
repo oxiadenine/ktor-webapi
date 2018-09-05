@@ -11,4 +11,4 @@ To start your Ktor server:
 3. Build executables with `Build` menu option
 4. Start Ktor server with `Run` menu option
 
-Now you can visit http://localhost:3000/ from your browser.
+Now you can visit http://localhost:3000/api from your browser.
