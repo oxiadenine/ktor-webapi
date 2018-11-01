@@ -6,9 +6,8 @@ This project is a an example of [Ktor](https://ktor.io/) web framework for a Web
 
 To start your Ktor server:
 
-1. Open the project with IntelliJ IDEA
-2. Install dependencies with `Gradle import` notification
-3. Build executables with `Build` menu option
-4. Start Ktor server with `Run` menu option
+1. Install dependencies with `./gradlew`
+3. Build executables with `./gradlew build`
+4. Start Ktor server with `./gradlew run`
 
 Now you can visit http://localhost:3000/api from your browser.
