@@ -27,6 +27,8 @@ dependencies {
     implementation "ch.qos.logback:logback-classic:$logback_version"
 }
 
+mainClassName = 'ktorwebapi.ServerKt'
+
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }

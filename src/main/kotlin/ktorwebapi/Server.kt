@@ -6,8 +6,10 @@ import io.ktor.server.engine.applicationEngineEnvironment
 import io.ktor.server.engine.connector
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.util.KtorExperimentalAPI
 import org.slf4j.LoggerFactory
 
+@KtorExperimentalAPI
 fun main(args: Array<String>) {
     val environment = System.getenv("KTOR_ENVIRONMENT") ?: "production"
     val configName = "application.$environment.conf"
