@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory
 
 @KtorExperimentalAPI
 fun main(args: Array<String>) {
-    val environment = System.getenv("KTOR_ENVIRONMENT") ?: "production"
+    val environment = System.getenv("KTOR_ENVIRONMENT") ?: "development"
     val configName = "application.$environment.conf"
 
     val appEngineEnv = applicationEngineEnvironment {

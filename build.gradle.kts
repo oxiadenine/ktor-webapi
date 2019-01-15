@@ -40,8 +40,6 @@ tasks.withType<KotlinCompile> {
 }
 
 flyway {
-    val flywayEnvironment: String by project
-
-    configFiles = arrayOf("database/configuration/database.$flywayEnvironment.conf")
-    locations = arrayOf("filesystem:database/migrations")
+    configFiles = arrayOf("db/flyway.conf")
+    locations = arrayOf("filesystem:db/migrations")
 }
