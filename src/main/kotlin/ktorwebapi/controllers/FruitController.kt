@@ -12,7 +12,7 @@ class FruitController {
         }.toList()
     }
 
-    fun one(id: Long) = transaction {
+    fun one(id: Int) = transaction {
         val fruitEntity = FruitEntity.findById(id)
 
         return@transaction if (fruitEntity != null) {
@@ -33,18 +33,17 @@ class FruitController {
         } else null
     }
 
-    fun edit(id: Long, fruit: Fruit) = transaction {
+    fun edit(id: Int, fruit: Fruit) = transaction {
         val fruitEntity = FruitEntity.findById(id)
 
         return@transaction if (fruitEntity != null) {
-            fruitEntity.no = fruit.no
             fruitEntity.description = fruit.description
 
             Fruit(fruitEntity.id.value, fruitEntity.no, fruitEntity.description)
         } else null
     }
 
-    fun delete(id: Long) = transaction {
+    fun delete(id: Int) = transaction {
         val fruitEntity = FruitEntity.findById(id)
 
         return@transaction if (fruitEntity != null) {

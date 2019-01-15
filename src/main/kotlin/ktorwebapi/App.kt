@@ -7,22 +7,25 @@ import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
 import io.ktor.gson.gson
 import io.ktor.routing.Routing
+import io.ktor.util.KtorExperimentalAPI
 import ktorwebapi.controllers.FruitController
 import ktorwebapi.entities.Fruits
 import ktorwebapi.routing.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.sql.Connection
 
+@KtorExperimentalAPI
 fun Application.main() {
     val appConfig = environment.config
 
     val databaseUrl = appConfig.property("ktor.database.url").getString()
     val databaseDriver = appConfig.property("ktor.database.driver").getString()
-    val databaseUser = appConfig.property("ktor.database.user").getString()
-    val databasePassword = appConfig.property("ktor.database.password").getString()
 
-    Database.connect(databaseUrl, databaseDriver, databaseUser, databasePassword)
+    Database.connect(databaseUrl, databaseDriver)
+    TransactionManager.manager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE
 
     transaction {
         SchemaUtils.create(Fruits)

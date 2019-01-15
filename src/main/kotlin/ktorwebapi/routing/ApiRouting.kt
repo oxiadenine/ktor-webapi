@@ -9,6 +9,6 @@ private const val API_URL = "api"
 
 fun Route.api() {
     get(API_URL) {
-        call.respond("Welcome to Ktor Web API")
+        call.respond("Welcome to Ktor Web API!")
     }
 }

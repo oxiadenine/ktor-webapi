@@ -21,7 +21,7 @@ fun Route.fruits(controller: FruitController) {
         }
 
         get("{id}") {
-            val id = call.parameters["id"]!!.toLong()
+            val id = call.parameters["id"]!!.toInt()
 
             val fruit = controller.one(id)
 
@@ -49,7 +49,7 @@ fun Route.fruits(controller: FruitController) {
         }
 
         put("{id}") {
-            val id = call.parameters["id"]!!.toLong()
+            val id = call.parameters["id"]!!.toInt()
 
             val editFruit = call.receive<Fruit>()
 
@@ -65,7 +65,7 @@ fun Route.fruits(controller: FruitController) {
         }
 
         delete("{id}") {
-            val id = call.parameters["id"]!!.toLong()
+            val id = call.parameters["id"]!!.toInt()
 
             val fruit = controller.delete(id)
 

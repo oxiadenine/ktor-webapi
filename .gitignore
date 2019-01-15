@@ -1,13 +1,15 @@
-# IntelliJ IDEA
+# IDE
 .idea/
-out/
 
-# Gradle
+# Build
 .gradle/
 build/
+out/
 
-# File-based project format
-*.iws
+# Database
+database/*.sqlite3
 
-# Application configuration
-application.*.conf
+# Security
+
+# Configuration
+application.production.conf
