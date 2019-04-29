@@ -1,3 +1,4 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "samgarasx"
@@ -6,6 +7,7 @@ version = "0.1.0"
 plugins {
     kotlin("jvm")
     application
+    id("com.github.johnrengelman.shadow") version "5.0.0"
     id("org.flywaydb.flyway") version "5.2.4"
 }
 
@@ -22,6 +24,12 @@ repositories {
 
 application {
     mainClassName = "ktorwebapi.ServerKt"
+}
+
+tasks.withType<ShadowJar> {
+    setProperty("archiveBaseName", project.name)
+    setProperty("archiveVersion", project.version)
+    setProperty("archiveClassifier", null)
 }
 
 tasks.withType<KotlinCompile> {
