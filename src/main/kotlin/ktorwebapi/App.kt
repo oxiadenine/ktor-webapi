@@ -1,12 +1,11 @@
 package ktorwebapi
 
-import io.ktor.application.Application
-import io.ktor.application.install
-import io.ktor.features.CallLogging
-import io.ktor.features.ContentNegotiation
-import io.ktor.features.DefaultHeaders
-import io.ktor.gson.gson
-import io.ktor.routing.Routing
+import io.ktor.server.application.*
+import io.ktor.server.plugins.callloging.*
+import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.plugins.defaultheaders.*
+import io.ktor.serialization.gson.*
+import io.ktor.server.routing.*
 import io.ktor.util.KtorExperimentalAPI
 import ktorwebapi.controllers.FruitController
 import ktorwebapi.routing.*

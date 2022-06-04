@@ -1,7 +1,7 @@
 package ktorwebapi
 
 import com.typesafe.config.ConfigFactory
-import io.ktor.config.HoconApplicationConfig
+import io.ktor.server.config.*
 import io.ktor.server.engine.applicationEngineEnvironment
 import io.ktor.server.engine.connector
 import io.ktor.server.engine.embeddedServer

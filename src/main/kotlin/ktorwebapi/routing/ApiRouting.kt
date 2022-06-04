@@ -1,9 +1,8 @@
 package ktorwebapi.routing
 
-import io.ktor.application.call
-import io.ktor.response.respond
-import io.ktor.routing.Route
-import io.ktor.routing.get
+import io.ktor.server.response.*
+import io.ktor.server.application.*
+import io.ktor.server.routing.*
 
 private const val API_URL = "api"
 
