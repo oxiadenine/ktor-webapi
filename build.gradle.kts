@@ -18,8 +18,9 @@ val logbackVersion: String by project
 val flywayVersion: String by project
 
 repositories {
-    jcenter()
-    maven("https://kotlin.bintray.com/ktor")
+    gradlePluginPortal()
+    mavenCentral()
+    google()
 }
 
 application {
