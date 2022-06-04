@@ -49,7 +49,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-gson:$ktorVersion")
     implementation("org.jetbrains.exposed:exposed:$kotlinExposedVersion")
-    compile("org.xerial:sqlite-jdbc:$sqliteJdbcVersion")
+    implementation("org.xerial:sqlite-jdbc:$sqliteJdbcVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("org.flywaydb:flyway-core:$flywayVersion")
 }
