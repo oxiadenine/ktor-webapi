@@ -17,16 +17,6 @@ val sqliteJdbcVersion: String by project
 val logbackVersion: String by project
 val flywayVersion: String by project
 
-repositories {
-    gradlePluginPortal()
-    mavenCentral()
-    google()
-    maven(
-        // Only required if using EAP releases
-        url = "https://maven.pkg.jetbrains.space/public/p/ktor/eap"
-    )
-}
-
 application {
     mainClassName = "ktorwebapi.ServerKt"
 }
