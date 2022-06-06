@@ -3,16 +3,16 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 //    kotlin("jvm") version "1.6.21"
-    id("org.jetbrains.kotlin.jvm")  
+    id("org.jetbrains.kotlin.jvm")
     application
     id("com.github.johnrengelman.shadow") version "5.0.0"
     id("org.flywaydb.flyway") version "5.2.4"
 }
 
-val ktorVersion: String ? by rootProject
-val kotlinExposedVersion: String ? by rootProject
-val sqliteJdbcVersion: String? by rootProject
-val logbackVersion: String ? by rootProject
+val ktor_version: String   by rootProject
+val kotlin_Exposed_version: String   by rootProject
+val sqliteJdbc_version: String  by rootProject
+val logback_version: String   by rootProject
 
 group = "samgarasx"
 version = "0.1.0"
@@ -37,32 +37,32 @@ flyway {
 }
 
 dependencies {
-    val flywayVersion: String by project
+    val flyway_version: String by project
     implementation(kotlin("stdlib-jdk8"))
     //Ref  : https://ktor.io/docs/migrating-2.html#server-package
-    implementation("io.ktor:ktor-server-call-logging:$ktorVersion")
-    implementation("io.ktor:ktor-server-auto-head-response:$ktorVersion")
-    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
-    implementation("io.ktor:ktor-server-call-id:$ktorVersion")
-    implementation("io.ktor:ktor-server-double-receive:$ktorVersion")
-    implementation("io.ktor:ktor-server-data-conversion:$ktorVersion")
-    implementation("io.ktor:ktor-server-default-headers:$ktorVersion")
-    implementation("io.ktor:ktor-server-compression:$ktorVersion")
-    implementation("io.ktor:ktor-server-caching-headers:$ktorVersion")
-    implementation("io.ktor:ktor-server-conditional-headers:$ktorVersion")
-    implementation("io.ktor:ktor-server-cors:$ktorVersion")
-    implementation("io.ktor:ktor-server-hsts:$ktorVersion")
-    implementation("io.ktor:ktor-server-http-redirect:$ktorVersion")
-    implementation("io.ktor:ktor-server-partial-content:$ktorVersion")
-    implementation("io.ktor:ktor-server-sessions:$ktorVersion")
+    implementation("io.ktor:ktor-server-call-logging:$ktor_version")
+    implementation("io.ktor:ktor-server-auto-head-response:$ktor_version")
+    implementation("io.ktor:ktor-server-status-pages:$ktor_version")
+    implementation("io.ktor:ktor-server-call-id:$ktor_version")
+    implementation("io.ktor:ktor-server-double-receive:$ktor_version")
+    implementation("io.ktor:ktor-server-data-conversion:$ktor_version")
+    implementation("io.ktor:ktor-server-default-headers:$ktor_version")
+    implementation("io.ktor:ktor-server-compression:$ktor_version")
+    implementation("io.ktor:ktor-server-caching-headers:$ktor_version")
+    implementation("io.ktor:ktor-server-conditional-headers:$ktor_version")
+    implementation("io.ktor:ktor-server-cors:$ktor_version")
+    implementation("io.ktor:ktor-server-hsts:$ktor_version")
+    implementation("io.ktor:ktor-server-http-redirect:$ktor_version")
+    implementation("io.ktor:ktor-server-partial-content:$ktor_version")
+    implementation("io.ktor:ktor-server-sessions:$ktor_version")
 
-    implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
-    implementation("io.ktor:ktor-serialization-gson:$ktorVersion")
-    implementation("org.jetbrains.exposed:exposed-core:$kotlinExposedVersion")
-    implementation("org.jetbrains.exposed:exposed-dao:$kotlinExposedVersion")
-    implementation("org.jetbrains.exposed:exposed-jdbc:$kotlinExposedVersion")
-    implementation("org.xerial:sqlite-jdbc:$sqliteJdbcVersion")
-    implementation("ch.qos.logback:logback-classic:$logbackVersion")
-    implementation("org.flywaydb:flyway-core:$flywayVersion")
+    implementation("io.ktor:ktor-server-netty:$ktor_version")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
+    implementation("io.ktor:ktor-serialization-gson:$ktor_version")
+    implementation("org.jetbrains.exposed:exposed-core:$kotlin_Exposed_version")
+    implementation("org.jetbrains.exposed:exposed-dao:$kotlin_Exposed_version")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$kotlin_Exposed_version")
+    implementation("org.xerial:sqlite-jdbc:$sqliteJdbc_version")
+    implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("org.flywaydb:flyway-core:$flyway_version")
 }
