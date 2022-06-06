@@ -1,4 +1,5 @@
 pluginManagement {
+    val android_gradle_plugin_version: String by settings
     val kotlin_version: String by settings
     repositories {
         gradlePluginPortal()
@@ -17,9 +18,11 @@ pluginManagement {
         mavenLocal()
     }
 
-//    plugins {
+    plugins {
+        id("com.android.library") version android_gradle_plugin_version
+        id("com.android.application") version android_gradle_plugin_version
 //        id("org.jetbrains.kotlin.jvm") version kotlin_version
-//    }
+    }
 
     resolutionStrategy {
         eachPlugin {
@@ -53,5 +56,6 @@ dependencyResolutionManagement {
 rootProject.name = "ktor-webapi"
 include(
     "webapi",
-    "ktor_unit"
+    "ktor_unit",
+    "Ktor_at_Android"
 )
