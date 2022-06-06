@@ -2,9 +2,8 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-//    kotlin("jvm") version "1.6.21"
     id("org.jetbrains.kotlin.jvm")
-    application
+    `java-library`
     id("com.github.johnrengelman.shadow") version "5.0.0"
     id("org.flywaydb.flyway") version "5.2.4"
 }
@@ -17,9 +16,6 @@ val logback_version: String   by rootProject
 group = "samgarasx"
 version = "0.1.0"
 
-application {
-    mainClassName = "ktorwebapi.ServerKt"
-}
 
 tasks.withType<ShadowJar> {
     setProperty("archiveBaseName", project.name)
@@ -28,7 +24,9 @@ tasks.withType<ShadowJar> {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    sourceCompatibility = JavaVersion.VERSION_1_8.toString()
+    targetCompatibility = JavaVersion.VERSION_1_8.toString()
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }
 
 flyway {
@@ -65,6 +63,4 @@ dependencies {
     implementation("org.xerial:sqlite-jdbc:$sqliteJdbc_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("org.flywaydb:flyway-core:$flyway_version")
-
-    implementation(project(":ktor_unit"))
 }

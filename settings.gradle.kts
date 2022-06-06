@@ -51,4 +51,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "ktor-webapi"
-include("webapi")
+include(
+    "webapi",
+    "ktor_unit"
+)
