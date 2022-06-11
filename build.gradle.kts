@@ -1,54 +1,60 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-group = "samgarasx"
-version = "0.1.0"
-
 plugins {
     kotlin("jvm")
+    kotlin("plugin.serialization")
     application
-    id("com.github.johnrengelman.shadow") version "5.0.0"
-    id("org.flywaydb.flyway") version "5.2.4"
 }
 
-val ktorVersion: String by project
-val kotlinExposedVersion: String by project
-val sqliteJdbcVersion: String by project
-val logbackVersion: String by project
-val flywayVersion: String by project
+group = "com.github.samgarasx"
+version = "1.0.0"
 
 repositories {
-    jcenter()
-    maven("https://kotlin.bintray.com/ktor")
-}
-
-application {
-    mainClassName = "ktorwebapi.ServerKt"
-}
-
-tasks.withType<ShadowJar> {
-    setProperty("archiveBaseName", project.name)
-    setProperty("archiveVersion", project.version)
-    setProperty("archiveClassifier", null)
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
-flyway {
-    configFiles = arrayOf("db/flyway.conf")
-    locations = arrayOf("filesystem:db/migrations")
+    mavenCentral()
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlinxDependency("coroutines-core"))
+    implementation(kotlinxDependency("serialization-json"))
 
-    implementation("io.ktor:ktor-server-core:$ktorVersion")
-    implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-gson:$ktorVersion")
-    implementation("org.jetbrains.exposed:exposed:$kotlinExposedVersion")
-    compile("org.xerial:sqlite-jdbc:$sqliteJdbcVersion")
-    implementation("ch.qos.logback:logback-classic:$logbackVersion")
-    implementation("org.flywaydb:flyway-core:$flywayVersion")
+    implementation(ktorDependency("server-netty"))
+    implementation(ktorDependency("server-content-negotiation"))
+    implementation(ktorDependency("server-cors"))
+    implementation(ktorDependency("server-status-pages"))
+    implementation(ktorDependency("serialization-kotlinx-json"))
+
+    implementation(exposedDependency("core"))
+    implementation(exposedDependency("jdbc"))
+
+    implementation(hikaricpDependency())
+    implementation(h2Dependency())
+
+    implementation(logbackDependency("classic"))
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+kotlin {
+    target.compilations.all {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
+}
+
+application {
+    mainClass.set("MainKt")
+}
+
+tasks.named<Jar>("jar") {
+    manifest {
+        attributes["Main-Class"] = application.mainClass.get()
+    }
+
+    from(configurations["runtimeClasspath"].map { file: File ->
+        if (file.isDirectory) file else zipTree(file)
+    })
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

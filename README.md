@@ -1,19 +1,15 @@
 ## Introduction
 
-This project is a an example of [Ktor](https://ktor.io/) web framework for a Web API.
+This project is an example of [Ktor](https://ktor.io/) web framework for a Web API.
 
-The database engine used by the project is [SQLite](https://www.sqlite.org/).
+The database engine used by the project is [H@Database](https://www.h2database.com/html/main.html).
 
 ### Getting Started
 
-To create and migrate the database:
+To start the Ktor server use the following commands:
 
-1. Initialize and migrate database with `./gradlew flywayMigrate -i`
+- Install dependencies with `./gradlew`
+- Build executables with `./gradlew build`
+- Start Ktor server with `./gradlew run`
 
-To start the Ktor server:
-
-1. Install dependencies with `./gradlew`
-2. Build executables with `./gradlew build`
-3. Start Ktor server with `./gradlew run`
-
-Now you can visit http://localhost:3000/api from your browser.
+Now you can visit http://127.0.0.1:8080/api from your browser.

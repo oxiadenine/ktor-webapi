@@ -1,16 +1,14 @@
 # IDE
 .idea/
-.vscode/
-
-# Build
-.gradle/
-build/
-out/
-
-# Database
-db/*.sqlite3
-
-# Security
 
 # Configuration
-application.production.conf
+application.*.conf
+!application.conf
+
+# Database
+*.db
+
+# Build
+build/
+out/
+.gradle/
