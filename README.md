@@ -2,11 +2,11 @@
 
 This project is an example of [Ktor](https://ktor.io/) web framework for a Web API.
 
-The database engine used by the project is [H@Database](https://www.h2database.com/html/main.html).
+The database engine used by the project is [H2Database](https://www.h2database.com/html/main.html).
 
 ### Getting Started
 
-To start the Ktor server use the following commands:
+To start the Ktor server run the following commands:
 
 - Install dependencies with `./gradlew`
 - Build executables with `./gradlew build`
